@@ -4,4 +4,7 @@ RUN dnf -y update && dnf -y install httpd mod_ssl mod_xsendfile php php-xml php-
 EXPOSE 80 443
 RUN echo "IncludeOptional /var/www/conf.d/*.conf" >>/etc/httpd/conf/httpd.conf
 RUN mkdir /var/www/conf.d/ 
-CMD ["/sbin/httpd", "-D", "FOREGROUND"]
+ADD run-apache.sh /run-apache.sh
+RUN chmod -v +x /run-apache.sh
+
+CMD ["/run-apache.sh"]
